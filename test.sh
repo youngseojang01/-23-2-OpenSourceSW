@@ -1,20 +1,16 @@
 #!/bin/bash
-ITEM = $1 # movie_id, movie_title, release_date, video_release_date, IMDb URL, Genre
-DATA = $2
-USER = $3
-
 read -p "User Name: " name
 read -p "Student Number: " std_num
 echo "[ MENU ] 
 	1. Get the data of the movie identified by a specific 'movie id' from 'u.item'
 	2. Get the data of 'action' genre movies from 'u.item'
-	3. Get the average 'rating' of the movie identified by specific 'moive id' from 'u.data'\n \
-	4. Delete the 'IMDb URL' from 'u.item'\n \
-	5. Get the data about movies rated by a specific 'user id' from 'u.data'\n \
-	6. Modify the format of movies rated by a specific 'user id' from 'u.data'\n \
-	7. Get the data of movies rated by a specific 'user id' from 'u.data'\n \
-	8. Get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'\n \
-	9. Exit\n"
+	3. Get the average 'rating' of the movie identified by specific 'moive id' from 'u.data'
+	4. Delete the 'IMDb URL' from 'u.item'
+	5. Get the data about movies rated by a specific 'user id' from 'u.data'
+	6. Modify the format of movies rated by a specific 'user id' from 'u.data'
+	7. Get the data of movies rated by a specific 'user id' from 'u.data'
+	8. Get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'
+	9. Exit"
 echo "-------------------------"
 read -p "Enter your choice [ 1-9 ] " choice
 echo "choice: $choice"
@@ -26,7 +22,10 @@ case $choice in
 		;;
 	2)
 		read -p "Do you want to get the data of 'action' genre movies from 'u.item'? (y/n): " respond
-		echo ITEM | awk '$7==1 {print $1, $2}'
+		if [ $respond == "y" ] 
+		then
+			cat u.item | awk -F\| '$7==1 {print $1, $2}'
+		fi
 		;;
 	3)
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
