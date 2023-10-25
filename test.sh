@@ -1,4 +1,7 @@
 #!/bin/bash
+ITEM = $2 # movie_id, movie_title, release_date, video_release_date, IMDb URL, Genre
+DATA = $3
+USER = $4
 
 read -p "User Name: " name
 echo "name: $name"
