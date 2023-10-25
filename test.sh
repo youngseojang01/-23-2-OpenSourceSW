@@ -30,6 +30,7 @@ case $choice in
 	3)
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
 		echo "average rating of $movie_id: "
+		cat u.data | awk -F\| -v id=$movie_id sum=0 '$2==id { sum+=$3 }' | echo sum
 		;;
 	4)
 		read -p "Do you want to delete the 'IMDb URL' from 'u.item'?(y/n): " respond
