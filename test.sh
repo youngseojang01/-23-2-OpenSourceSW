@@ -24,7 +24,7 @@ case $choice in
 		read -p "Do you want to get the data of 'action' genre movies from 'u.item'? (y/n): " respond
 		if [ $respond == "y" ] 
 		then
-			cat u.item | awk -F\| '$7==1 {print $1, $2}'
+			cat u.item | awk -F\| '$7==1 {print $1, $2}' | head
 		fi
 		;;
 	3)
