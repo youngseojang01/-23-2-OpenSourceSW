@@ -28,7 +28,7 @@ case $choice in
 		;;
 	2)
 		read -p "Do you want to get the data of 'action' genre movies from 'u.item'? (y/n): " respond
-		echo ITEM | awk '$7==1 {print $0}'
+		echo ITEM | awk '$7==1 {print $1, $2}'
 		;;
 	3)
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
