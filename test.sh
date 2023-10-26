@@ -34,9 +34,19 @@ case $choice in
 		;;
 	4)
 		read -p "Do you want to delete the 'IMDb URL' from 'u.item'?(y/n): " respond
+		if [ $respond == "y" ]
+		then
+			sed -i '/^http://us.imdb.com/d' u.item
+			sed -E "s/http[^|]*\)//" 
+			cat u.item | awk -F\| '{print $0}' | head
+		fi
 		;;
 	5)
 		read -p "Do you want to get the data about users from 'u.user'?(y/n): " respond
+		if [ $respond == "y" ]
+		then
+			
+		fi
 		;;
 	6)
 		read -p "Do you want to modify the format of 'release data' in 'u.item'?(y/n); " respond
