@@ -45,7 +45,8 @@ case $choice in
 		read -p "Do you want to get the data about users from 'u.user'?(y/n): " respond
 		if [ $respond == "y" ]
 		then
-			
+			cat u.user | awk -F\| '{print "user ", $1, " is ", $2, " years old " $3, $4}' | head
+
 		fi
 		;;
 	6)
