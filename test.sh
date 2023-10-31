@@ -51,6 +51,26 @@ case $choice in
 		;;
 	6)
 		read -p "Do you want to modify the format of 'release data' in 'u.item'?(y/n); " respond
+		if [ $respond == "y" ] 
+		then
+			sed -E '
+			s/Jan/01/g
+			s/Feb/02/g
+			s/Mar/03/g
+			s/Apr/04/g
+			s/May/05/g
+			s/Jun/06/g
+			s/Jul/07/g
+			s/Aug/08/g
+			s/Sep/09/g
+			s/Oct/10/g
+			s/Nov/11/g
+			s/Dec/12/g
+			s/-//g' u.item |
+			sed -E -e '
+			s/([0-9]{2})([0-9]{2})([0-9]{4})/\3\2\1/g
+			' | tail
+		fi
 		;;
 	7)
 		read -p "Please enter the 'user id' (1~943): " user_id
@@ -64,4 +84,3 @@ case $choice in
 	*)
 		echo "wrong choice"
 	esac
-
