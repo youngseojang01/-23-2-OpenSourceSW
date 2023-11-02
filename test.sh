@@ -14,8 +14,6 @@ echo "[ MENU ]
 echo "-------------------------------------------"
 for((;;))
 do
-echo "
-"
 read -p "Enter your choice [ 1-9 ] " choice
 case $choice in
 	1) 
@@ -23,6 +21,8 @@ case $choice in
 		"
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
 		cat u.item | awk -F\| -v id=$movie_id '$1==id {print $0}'
+		echo"
+		"
 		;;
 	2)
 		echo "
@@ -32,6 +32,8 @@ case $choice in
 		then
 			cat u.item | awk -F\| '$7==1 {print $1, $2}' | head
 		fi
+		echo"
+		"
 		;;
 	3)
 		echo "
@@ -39,6 +41,8 @@ case $choice in
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
 		echo "average rating of $movie_id: "
 		cat u.data | awk -v id=$movie_id '$2==id { sum+=$3; cnt++ } END { print sum/cnt }'
+		echo "
+		"
 		;;
 	4)
 		echo "
@@ -98,6 +102,8 @@ case $choice in
 			do
 				awk -F\| -v id=$line '$1==id { print $1, "|", $2 }' u.item
 			done
+		echo "
+		"
 		;;
 	8)
 		echo "
@@ -105,7 +111,14 @@ case $choice in
 		read -p "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'? (y/n): " respond
 		if [ $respond == "y" ]
 		then
-			cat u.data | awk -v id=$user_id ' {sum+=$3; cnt++} END { print sum/cnt }'
+			for var in $(seq 1 10)
+			do
+			awk -F\| -v occupation="programmer" '$2 >=20 && $2 < 30 && $4==occupation { print $1 }' u.user |
+				while read line
+				do
+					awk -v user_id=$line '$1==user_id { print $0 }' u.data 
+				done | awk -v id=$var '$2==id { sum+=$3; cnt++ } END { print id, sum/cnt }'
+			done
 		fi
 		;;
 	9)	
