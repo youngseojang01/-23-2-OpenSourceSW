@@ -12,6 +12,8 @@ echo "[ MENU ]
 8. Get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'
 9. Exit"
 echo "-------------------------------------------"
+for((;;))
+do
 read -p "Enter your choice [ 1-9 ] " choice
 echo "choice: $choice"
 case $choice in
@@ -46,7 +48,7 @@ case $choice in
 		if [ $respond == "y" ]
 		then
 			cat u.user | awk -F\| '{print "user ", $1, " is ", $2, " years old " $3, $4}' | head
-
+	
 		fi
 		;;
 	6)
@@ -74,13 +76,21 @@ case $choice in
 		;;
 	7)
 		read -p "Please enter the 'user id' (1~943): " user_id
+		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sed -z 's/\n/|/g'
+		echo "\n"
 		;;
 	8)
 		read -p "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'? (y/n): " respond
+		if [ $respond == "y" ]
+		then
+			echo "a"
+		fi
 		;;
-	9)
+	9)	
 		echo "Bye!"
+		break
 		;;
 	*)
 		echo "wrong choice"
 	esac
+done
