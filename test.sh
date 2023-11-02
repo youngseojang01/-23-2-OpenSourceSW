@@ -14,15 +14,19 @@ echo "[ MENU ]
 echo "-------------------------------------------"
 for((;;))
 do
+echo "
+"
 read -p "Enter your choice [ 1-9 ] " choice
-echo "choice: $choice"
 case $choice in
 	1) 
+		echo "
+		"
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
-		echo "movie_id: $movie_id"
 		cat u.item | awk -F\| -v id=$movie_id '$1==id {print $0}'
 		;;
 	2)
+		echo "
+		"
 		read -p "Do you want to get the data of 'action' genre movies from 'u.item'? (y/n): " respond
 		if [ $respond == "y" ] 
 		then
@@ -30,11 +34,15 @@ case $choice in
 		fi
 		;;
 	3)
+		echo "
+		"
 		read -p "Please enter the 'movie id' (1~1682): " movie_id
 		echo "average rating of $movie_id: "
 		cat u.data | awk -v id=$movie_id '$2==id { sum+=$3; cnt++ } END { print sum/cnt }'
 		;;
 	4)
+		echo "
+		"
 		read -p "Do you want to delete the 'IMDb URL' from 'u.item'?(y/n): " respond
 		if [ $respond == "y" ]
 		then
@@ -44,6 +52,8 @@ case $choice in
 		fi
 		;;
 	5)
+		echo "
+		"
 		read -p "Do you want to get the data about users from 'u.user'?(y/n): " respond
 		if [ $respond == "y" ]
 		then
@@ -52,6 +62,8 @@ case $choice in
 		fi
 		;;
 	6)
+		echo "
+		"
 		read -p "Do you want to modify the format of 'release data' in 'u.item'?(y/n): " respond
 		if [ $respond == "y" ] 
 		then
@@ -75,15 +87,25 @@ case $choice in
 		fi
 		;;
 	7)
+		echo "
+		"
 		read -p "Please enter the 'user id' (1~943): " user_id
-		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sort -n | sed -z 's/\n/|/g'
-		echo ""
+		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sort -n | sed -z 's/\n/|/g' | head
+		echo "
+		"
+		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sort -n | head |
+			while read line
+			do
+				awk -F\| -v id=$line '$1==id { print $1, "|", $2 }' u.item
+			done
 		;;
 	8)
+		echo "
+		"
 		read -p "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'? (y/n): " respond
 		if [ $respond == "y" ]
 		then
-			echo "a"
+			cat u.data | awk -v id=$user_id ' {sum+=$3; cnt++} END { print sum/cnt }'
 		fi
 		;;
 	9)	
