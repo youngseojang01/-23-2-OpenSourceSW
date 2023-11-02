@@ -52,7 +52,7 @@ case $choice in
 		fi
 		;;
 	6)
-		read -p "Do you want to modify the format of 'release data' in 'u.item'?(y/n); " respond
+		read -p "Do you want to modify the format of 'release data' in 'u.item'?(y/n): " respond
 		if [ $respond == "y" ] 
 		then
 			sed -E '
@@ -76,8 +76,8 @@ case $choice in
 		;;
 	7)
 		read -p "Please enter the 'user id' (1~943): " user_id
-		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sed -z 's/\n/|/g'
-		echo "\n"
+		cat u.data | awk -v id=$user_id '$1==id { print $2 }' | sort -n | sed -z 's/\n/|/g'
+		echo ""
 		;;
 	8)
 		read -p "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation' as 'programmer'? (y/n): " respond
