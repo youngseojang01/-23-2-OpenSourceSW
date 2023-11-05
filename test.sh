@@ -2,8 +2,8 @@
 item=$1
 data=$2
 user=$3
-read "User Name: 장영서"
-read "Student Number: 12201790"
+echo "User Name: 장영서"
+echo "Student Number: 12201790"
 echo "[ MENU ] 
 1. Get the data of the movie identified by a specific 'movie id' from 'u.item'
 2. Get the data of 'action' genre movies from 'u.item'
@@ -43,9 +43,7 @@ case $choice in
 		read -p "Do you want to delete the 'IMDb URL' from 'u.item'?(y/n): " respond
 		if [ $respond == "y" ]
 		then
-			sed -i '/^http://us.imdb.com/d' $item
-			sed -E "s/http[^|]*\)//" 
-			awk -F\| '{print $0}' $item | head
+			sed -E "s/http[^|]*\)//" $item | head 
 		fi
 		;;
 	5)
